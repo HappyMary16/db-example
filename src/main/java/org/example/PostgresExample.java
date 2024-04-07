@@ -46,7 +46,7 @@ public class PostgresExample {
             insertStmt.setString(1, cat2.getName());
             insertStmt.setString(2, cat2.getBehaviour().toString());
             insertStmt.executeUpdate();
-            //Зберігаємо всі зміни, які зробили в пранзакції в БД
+            //Зберігаємо всі зміни, які зробили в транзакції в БД
             conn.commit();
             conn.setAutoCommit(true);
         } catch (SQLException e) {
