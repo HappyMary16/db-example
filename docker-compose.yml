@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres:15.2
+    container_name: postgres-db
+    environment:
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_USER: postgres_user
+      POSTGRES_DB: db_cats
+    ports:
+      - "5432:5432"
