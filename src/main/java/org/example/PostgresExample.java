@@ -34,7 +34,7 @@ public class PostgresExample {
         Cat cat2 = new Cat("Murzyk", CRAZY);
 
         //Створюємо 2х котів в одній транзакції
-        String insertSql = "INSERT INTO cats VALUES (?, ?)";
+        String insertSql = "INSERT INTO cats (cat_name, behaviour) VALUES (?, ?)";
         try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
             //Починаємо транзакцію
             conn.setAutoCommit(false);
@@ -92,11 +92,11 @@ public class PostgresExample {
 
             while (resultSet.next()) {
                 String catName = resultSet.getString("cat_name");
-                CatBehaviour behaviour = resultSet.getObject("behaviour", CatBehaviour.class);
+                CatBehaviour behaviour = CatBehaviour.valueOf(resultSet.getString("behaviour"));
                 cats.add(new Cat(catName, behaviour));
             }
 
-            System.out.println("Коти збережені в базі даних після видалення одного кота:");
+            System.out.println("Коти збережені в базі даних після видалення доданих котів:");
             System.out.println(cats);
         } catch (SQLException e) {
             throw new RuntimeException("Cannot connect to DB", e);
